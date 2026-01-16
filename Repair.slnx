@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Repair.Application/Repair.Application.csproj" />
+  <Project Path="Repair.Contracts/Repair.Contracts.csproj" />
+  <Project Path="Repair.Domain/Repair.Domain.csproj" />
+  <Project Path="Repair.Infrastructure/Repair.Infrastructure.csproj" />
+  <Project Path="Repair.MigrationRunner/Repair.MigrationRunner.csproj" />
+  <Project Path="Repair/Repair.csproj" />
+</Solution>
