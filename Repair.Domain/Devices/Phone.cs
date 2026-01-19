@@ -6,7 +6,7 @@ namespace Repair.Domain.Devices
     {
         public string IMEI { get; private set; } = null!;
 
-        private Phone() { } //needed for EF
+        private Phone() { }
 
         public Phone(string imei, string model)
         {

@@ -23,16 +23,16 @@ public class RepairService : IRepairService
     {
         var repairs = await _repository.GetAllAsync(cancellationToken);
 
-        return repairs.Select(r => new RepairRequestListItemDto
+        return repairs.Select(_ => new RepairRequestListItemDto
         {
-            RepairRequestId = r.Id,
-            DeviceModel = r.Device.DeviceModel,
-            DeviceType = r.Device.GetType().Name,
-            ClientContact = r.ClientContact,
-            Country = r.Country,
-            CurrentStatus = r.CurrentStatus.ToString(),
-            StartDate = r.StartDate,
-            EndDate = r.EndDate
+            RepairRequestId = _.Id,
+            DeviceModel = _.Device.DeviceModel,
+            DeviceType = _.Device.GetType().Name,
+            ClientContact = _.ClientContact,
+            Country = _.Country,
+            CurrentStatus = _.CurrentStatus.ToString(),
+            StartDate = _.StartDate,
+            EndDate = _.EndDate
         }).ToList();
     }
 

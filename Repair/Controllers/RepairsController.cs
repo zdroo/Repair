@@ -92,11 +92,11 @@ public class RepairsController : ControllerBase
                 StartDate = repair.StartDate,
                 EndDate = repair.EndDate,
                 PhaseHistory = repair.PhaseHistory
-                    .Select(h => new RepairPhaseHistoryDto
+                    .Select(_ => new RepairPhaseHistoryDto
                     {
-                        Status = h.Status,
-                        ChangedAt = h.ChangedAt,
-                        Notes = h.Notes
+                        Status = _.Status,
+                        ChangedAt = _.ChangedAt,
+                        Notes = _.Notes
                     })
                     .ToList()
             };
