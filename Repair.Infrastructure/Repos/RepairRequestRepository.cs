@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Repair.Application.Persistence;
+using Repair.Application.Interfaces;
 using Repair.Domain.Repairs;
 using Repair.Infrastructure.Data;
 
@@ -12,6 +12,14 @@ public class RepairRequestRepository : IRepairRequestRepository
     public RepairRequestRepository(RepairDbContext context)
     {
         _context = context;
+    }
+
+    public async Task<IReadOnlyCollection<RepairRequest>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        return await _context.RepairRequests
+            .Include(r => r.Device)
+            .Include(r => r.PhaseHistory)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task AddAsync(RepairRequest repairRequest, CancellationToken cancellationToken)

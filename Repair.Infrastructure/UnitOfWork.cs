@@ -1,4 +1,4 @@
-﻿using Repair.Application.Persistence;
+﻿using Repair.Application.Interfaces;
 using Repair.Infrastructure.Data;
 
 namespace Repair.Infrastructure;

@@ -1,10 +1,13 @@
-﻿using Repair.Domain.Enums;
+﻿using Repair.Contracts.Repairs;
+using Repair.Domain.Enums;
 using Repair.Domain.Repairs;
 
-namespace Repair.Application.Persistence
+namespace Repair.Application.Interfaces
 {
     public interface IRepairService
     {
+        Task<IReadOnlyCollection<RepairRequestListItemDto>> GetAllRepairRequestsAsync(CancellationToken cancellationToken);
+
         Task<Guid> CreatePhoneRepairAsync(
             string phoneModel,
             string imei,

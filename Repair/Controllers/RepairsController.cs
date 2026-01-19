@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Repair.Application.Persistence;
+using Repair.Application.Interfaces;
+using Repair.Contracts.Repairs;
 using Repair.Contracts.Repairs.CreateRepairRequest;
 using Repair.Contracts.Repairs.RepairDetails;
 using Repair.Contracts.Repairs.UpdateRepairStatus;
@@ -17,13 +18,22 @@ public class RepairsController : ControllerBase
         _repairService = repairService;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyCollection<RepairRequestListItemDto>>> GetAll(
+    CancellationToken cancellationToken)
+    {
+        var list = await _repairService.GetAllRepairRequestsAsync(cancellationToken);
+        return Ok(list);
+    }
+
+
     [HttpPost]
     public async Task<ActionResult<CreateRepairRequestResponse>> Create(
         CreateRepairRequestRequest request,
         CancellationToken cancellationToken)
     {
         var id = await _repairService.CreatePhoneRepairAsync(
-            request.PhoneModel,
+            request.DeviceModel,
             request.IMEI,
             request.ClientContact,
             request.Country,

@@ -1,4 +1,5 @@
-﻿using Repair.Application.Persistence;
+﻿using Repair.Application.Interfaces;
+using Repair.Contracts.Repairs;
 using Repair.Domain.Devices;
 using Repair.Domain.Enums;
 using Repair.Domain.Repairs;
@@ -18,15 +19,33 @@ public class RepairService : IRepairService
         _unitOfWork = unitOfWork;
     }
 
+    public async Task<IReadOnlyCollection<RepairRequestListItemDto>> GetAllRepairRequestsAsync(CancellationToken cancellationToken)
+    {
+        var repairs = await _repository.GetAllAsync(cancellationToken);
+
+        return repairs.Select(r => new RepairRequestListItemDto
+        {
+            RepairRequestId = r.Id,
+            DeviceModel = r.Device.DeviceModel,
+            DeviceType = r.Device.GetType().Name,
+            ClientContact = r.ClientContact,
+            Country = r.Country,
+            CurrentStatus = r.CurrentStatus.ToString(),
+            StartDate = r.StartDate,
+            EndDate = r.EndDate
+        }).ToList();
+    }
+
+
     public async Task<Guid> CreatePhoneRepairAsync(
-        string phoneModel,
+        string deviceModel,
         string imei,
         string clientContact,
         string country,
         IssueType issueType,
         CancellationToken cancellationToken)
     {
-        var phone = new Phone(model:phoneModel, imei:imei);
+        var phone = new Phone(model: deviceModel, imei: imei);
 
         var repairRequest = new RepairRequest(
             phone,

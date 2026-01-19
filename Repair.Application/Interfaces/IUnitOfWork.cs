@@ -1,4 +1,4 @@
-﻿namespace Repair.Application.Persistence
+﻿namespace Repair.Application.Interfaces
 {
     public interface IUnitOfWork
     {
