@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="OutboxWorker/OutboxWorker.csproj" Id="d4d1ba3a-a0d0-4e28-85fe-33af44a4a5fc" />
   <Project Path="Repair.Application/Repair.Application.csproj" />
   <Project Path="Repair.Contracts/Repair.Contracts.csproj" />
   <Project Path="Repair.Domain/Repair.Domain.csproj" />

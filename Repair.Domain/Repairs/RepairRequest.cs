@@ -1,6 +1,7 @@
 ﻿using Repair.Domain.Common;
 using Repair.Domain.Devices;
 using Repair.Domain.Enums;
+using Repair.Domain.Events;
 
 namespace Repair.Domain.Repairs;
 
@@ -45,11 +46,21 @@ public class RepairRequest : BaseEntity
         if (newStatus < CurrentStatus)
             throw new InvalidOperationException("Cannot move repair status backwards.");
 
+        var oldStatus = CurrentStatus;
+
         CurrentStatus = newStatus;
         AddHistory(newStatus, notes);
 
         if (newStatus == RepairStatus.Return)
             EndDate = DateTime.UtcNow;
+
+        var domainEvent = new RepairStatusChangedDomainEvent(
+            Id,
+            oldStatus,
+            newStatus,
+            DateTime.UtcNow);
+
+        AddDomainEvent(domainEvent);
     }
 
     private void AddHistory(RepairStatus status, string? notes = null)
